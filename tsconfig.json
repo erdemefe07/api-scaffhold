@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "paths": {
+      "@redis": ["bin/connect/redis/client"],
+      "@postgres": ["bin/connect/postgres/client"],
+      "@models": ["models"],
+      "@middlewares": ["middlewares"],
+      "@exceptions": ["exceptions"]
+    }
+  },
+  "include": ["src/**/*"]
+}
