@@ -30,6 +30,20 @@ const configured = {
     crossOriginResourcePolicy: true,
     originAgentCluster: true,
   }),
+  cors: cors({
+    origin(origin, cb) {
+      if (process.env.NODE_ENV !== 'development') {
+        return cb(null, true);
+      }
+
+      const origins = JSON.parse(process.env.CORS_ORIGINS);
+      if (origins.indexOf(origin) !== -1) {
+        cb(null, true);
+      } else {
+        cb(new Error('Not allowed by CORS'));
+      }
+    },
+  }),
 };
 
 passport.serializeUser((user: User, done) => {
@@ -52,4 +66,4 @@ function DeletePassword(user: User, done: (err: any, newUser?: User | false | nu
   done(null, _user);
 }
 
-export { redis, express, cors, passport, cookieParser, configured };
+export { redis, express, passport, cookieParser, configured };
