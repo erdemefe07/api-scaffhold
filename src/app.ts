@@ -5,7 +5,7 @@ import initRoutes from './routes';
 
 const app = express();
 
-app.use(configured.helmet);
+ app.use(configured.helmet);
 app.use(configured.cors);
 app.use(cookieParser());
 app.use(express.json());
