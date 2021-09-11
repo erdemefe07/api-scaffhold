@@ -1,19 +1,22 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "target": "es6",
     "noImplicitAny": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "dist",
-    "baseUrl": "src",
+    "rootDir": "./",
+    "baseUrl": ".",
     "paths": {
-      "@redis": ["bin/connect/redis/client"],
-      "@postgres": ["bin/connect/postgres/client"],
-      "@models": ["models"],
-      "@middlewares": ["middlewares"],
-      "@exceptions": ["exceptions"]
+      "@redis": ["./src/bin/connect/redis/client"],
+      "@postgres": ["./src/bin/connect/postgres/client"],
+      "@models": ["./src/models"],
+      "@middlewares": ["./src/middlewares"],
+      "@exceptions": ["./src/exceptions"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,6 +1,5 @@
 /* eslint-disable import/first */
 import http from 'http';
-import { AddressInfo } from 'net';
 import { configure } from './config';
 
 configure();
@@ -49,7 +48,7 @@ function onError(error: any) {
 }
 
 function onListening() {
-  const addr = server.address() as AddressInfo;
+  const addr = server.address() as import('net').AddressInfo;
   console.log(`Running at http://localhost:${addr.port}`);
 }
 
