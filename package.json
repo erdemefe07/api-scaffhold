@@ -8,8 +8,10 @@
     "start": "cross-env TS_NODE_PROJECT=dist/tsconfig.json node -r tsconfig-paths/register dist/src/bin/www.js",
     "dev": "nodemon -r tsconfig-paths/register src/bin/www.ts",
     "build": "tsc && copy tsconfig.json dist",
-    "prettify": "prettier . --write",
-    "lint": "eslint . --ext .ts --fix"
+    "prettify": "prettier -c src",
+    "prettify:fix": "prettier src --write",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint src --ext .ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

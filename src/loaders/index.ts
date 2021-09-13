@@ -31,8 +31,9 @@ const configured = {
     originAgentCluster: true,
   }),
   cors: cors({
+    credentials: true,
     origin(origin, cb) {
-      if (process.env.NODE_ENV !== 'development') {
+      if (process.env.NODE_ENV === 'development') {
         return cb(null, true);
       }
 
