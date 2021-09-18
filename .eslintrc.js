@@ -44,5 +44,6 @@ module.exports = {
     'func-names': 'off',
     'import/prefer-default-export': 'off',
     'max-len': ['error', { code: 120 }],
+    'no-restricted-syntax': 'off',
   },
 };

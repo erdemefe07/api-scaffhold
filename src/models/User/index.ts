@@ -7,6 +7,7 @@ interface UserAttributes {
   displayName: string | null;
   avatar: string | null;
   password: string | null;
+  verified: boolean;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -21,6 +22,8 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public avatar!: string | null;
 
   public password!: string | null;
+
+  public verified!: boolean;
 
   public readonly createdAt!: Date;
 }
@@ -47,6 +50,11 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   {

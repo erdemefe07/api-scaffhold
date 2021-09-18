@@ -12,6 +12,7 @@ const localStrategy = new LocalStrategy({ usernameField: 'email' }, async (email
         password,
         avatar: null,
         displayName: null,
+        verified: false,
       },
       {
         returning: true,

@@ -1,4 +1,4 @@
-import { AuthenticationRequired, AuthenticationNotCompleted } from '@exceptions';
+import { AuthenticationRequired, AuthenticationNotCompleted, EmailVerifyRequired } from '@exceptions';
 import { User } from '@models';
 import express from 'express';
 
@@ -7,6 +7,16 @@ function isAuthenticated(req: express.Request, res: express.Response, next: expr
 
   if (!user) {
     throw AuthenticationRequired;
+  }
+
+  next();
+}
+
+function isEmailVerified(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const user = req.user as User;
+
+  if (!user.verified) {
+    throw EmailVerifyRequired;
   }
 
   next();
@@ -32,6 +42,6 @@ function disallowNamed(req: express.Request, res: express.Response, next: expres
   next();
 }
 
-const checkUser = [isAuthenticated, isUserNamed];
+const checkUser = [isAuthenticated, isUserNamed, isEmailVerified];
 
-export { isAuthenticated, isUserNamed, checkUser, disallowNamed };
+export { isAuthenticated, isUserNamed, checkUser, disallowNamed, isEmailVerified };

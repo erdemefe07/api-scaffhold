@@ -9,4 +9,10 @@ const AuthenticationNotCompleted = {
   statusCode: 403,
   message: 'Authentication Not Completed',
 };
-export { AuthenticationRequired, AuthenticationNotCompleted };
+
+const EmailVerifyRequired = {
+  error: true,
+  statusCode: 403,
+  message: 'Email Verify Required',
+};
+export { AuthenticationRequired, AuthenticationNotCompleted, EmailVerifyRequired };

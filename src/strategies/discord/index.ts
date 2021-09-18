@@ -12,6 +12,7 @@ const discordStrategy = new DiscordStrategy(
     const [user] = await User.findOrCreate({
       where: { email: profile.email },
       defaults: {
+        verified: profile.verified,
         avatar: null,
         email: profile.email,
         password: null,

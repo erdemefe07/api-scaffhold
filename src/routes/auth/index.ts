@@ -23,8 +23,8 @@ router.get('/', (req, res) => {
   </form>
   `);
 });
-router.post('/discord', passport.authenticate('discord'));
-router.post('/google', passport.authenticate('google'));
+router.get('/discord', passport.authenticate('discord'));
+router.get('/google', passport.authenticate('google'));
 router.post(
   '/local',
   passport.authenticate('local', {
