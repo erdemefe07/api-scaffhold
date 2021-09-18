@@ -1,6 +1,7 @@
 import { isAuthenticated, checkUser, disallowNamed } from '@middlewares';
 import { Router } from 'express';
 import multer from 'multer';
+import { compare } from 'bcrypt';
 import asyncHandler from 'express-async-handler';
 import { User } from '@models';
 
@@ -42,6 +43,29 @@ router.post(
 
       res.json({ success: true });
     });
+  })
+);
+
+router.post(
+  '/changePassword',
+  checkUser,
+  asyncHandler(async (req, res) => {
+    const _user = req.user as User;
+    const { oldPassword, newPassword, newPasswordAgain } = req.body;
+    if (newPassword !== newPasswordAgain) {
+      return res.status(400).json({ error: true, message: 'Passwords not equal' });
+    }
+
+    const user = await User.findOne({ where: { email: _user.email }, attributes: { include: ['password'] } });
+    const isEqual = await compare(oldPassword, user.password || '');
+
+    if (!isEqual) {
+      return res.status(400).json({ error: true, message: 'Password wrong' });
+    }
+
+    user.password = newPassword;
+    await user.save();
+    res.json({ success: true });
   })
 );
 

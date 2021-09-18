@@ -9,7 +9,6 @@ app.use(configured.helmet);
 app.use(configured.cors);
 app.use(cookieParser());
 app.use(express.json());
-app.use(configured.trimmer);
 app.use(configured.session);
 
 initStrategies();

@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '@postgres';
+import { hash } from 'bcrypt';
 
 interface UserAttributes {
   id: number;
@@ -66,6 +67,17 @@ User.init(
     sequelize,
     modelName: 'User',
     tableName: 'Users',
+    hooks: {
+      async beforeUpdate(user) {
+        const isPasswordModified = user.changed('password');
+        if (!isPasswordModified) {
+          return undefined;
+        }
+
+        const password = await hash(user.password, 10);
+        user.password = password;
+      },
+    },
   }
 );
 

@@ -45,5 +45,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'max-len': ['error', { code: 120 }],
     'no-restricted-syntax': 'off',
+    'no-param-reassign': ['error', { props: false }],
   },
 };
