@@ -46,5 +46,6 @@ module.exports = {
     'max-len': ['error', { code: 120 }],
     'no-restricted-syntax': 'off',
     'no-param-reassign': ['error', { props: false }],
+    'no-throw-literal': 'off',
   },
 };

@@ -6,6 +6,8 @@ import getClient from '@redis';
 import { Redis } from 'ioredis';
 import ms from 'ms';
 import { User } from '@models';
+import { param } from 'express-validator';
+import { validate } from '@middlewares';
 import loginsRouter from './login';
 
 const router = Router();
@@ -13,6 +15,7 @@ const redis = getClient as Redis;
 
 router.get(
   '/resetPassword/:email',
+  validate(param('email').isEmail()),
   asyncHandler(async (req, res) => {
     const { email } = req.params;
 
@@ -64,6 +67,7 @@ https://api.virtueer.com/auth/resetPassword/${email}/${id}
 
 router.post(
   '/resetPassword/:email/:id',
+  validate(param('email').isEmail(), param('id').isLength({ min: 21, max: 21 })),
   asyncHandler(async (req, res) => {
     const { email, id } = req.params;
     const { newPassword, newPasswordAgain } = req.body;

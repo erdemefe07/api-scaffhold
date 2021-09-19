@@ -1,9 +1,10 @@
-import { isAuthenticated, checkUser, disallowNamed } from '@middlewares';
+import { isAuthenticated, checkUser, disallowNamed, validate } from '@middlewares';
 import { Router } from 'express';
 import multer from 'multer';
 import { compare } from 'bcrypt';
 import asyncHandler from 'express-async-handler';
 import { User } from '@models';
+import { body } from 'express-validator';
 
 const upload = multer({ dest: 'uploads/' });
 const router = Router();
@@ -28,11 +29,12 @@ router.get(
 router.post(
   '/complete',
   isAuthenticated,
-  disallowNamed,
+  disallowNamed, // This is for only first time user uses this route. At second times user must use update route
   upload.single('avatar'),
+  validate(body('displayName').isLength({ min: 3, max: 25 })),
   asyncHandler(async (req, res) => {
     const { displayName } = req.body;
-    const avatar = req.file.filename;
+    const avatar = req.file?.filename;
     const user = req.user as User;
     const result = await User.update({ displayName, avatar }, { where: { email: user.email }, returning: true });
     const lastUser = result[1][0];
